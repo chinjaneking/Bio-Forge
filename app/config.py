@@ -5,14 +5,14 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     """应用配置"""
-    app_name: str = "DeerFlow 2.0"
+    app_name: str = "Bio-Forge"
     app_env: str = "development"
     app_debug: bool = True
-    app_url: str = "http://localhost:8000"
+    app_url: str = "http://localhost:1983"
     api_prefix: str = "/api/v1"
     
     # 数据库
-    database_url: str = "sqlite:///./deerflow.db"
+    database_url: str = "sqlite:///./bio-forge.db"
     redis_url: str = "redis://localhost:6379/0"
     
     # Neo4j

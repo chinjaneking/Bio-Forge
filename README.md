@@ -1,282 +1,166 @@
-# 🧬 Bio-Forge
 
-> 智能体协调中枢与生物研发任务调度平台
+# Bio-Forge - AI创造新生命智能体平台
 
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green.svg)](https://fastapi.tiangolo.com/)
-[![Docker](https://img.shields.io/badge/Docker-20.10+-blue.svg)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+**项目代号**: Genesis-2026  
+**愿景**: 用AI重新定义生命创造范式  
+**周期**: 2026.3 - 2031.3  
+**发起人**: chinjaneking (灵知生物科技研发总监)  
 
----
+## 项目概述
 
-## 📖 简介
+Bio-Forge 是基于 DeerFlow 2.0 构建的 AI 驱动合成生物研发智能体协调与调度平台。作为 Genesis-2026 项目的核心技术引擎，Bio-Forge 集成了 120 个专业化智能体，覆盖从基因组设计到合成生物制造的全流程。
 
-Bio-Forge 是一个基于 DeerFlow 2.0 框架构建的生物研发智能体协调平台，专为合成生物学、蛋白质工程、细胞工程等领域的研究团队设计。
+### 双平台定位
 
-### 核心特性
+| 平台 | 定位 | 端口 | 容器名 | 目录 |
+|------|------|------|--------|------|
+| **DeerFlow 2.0** | 通用智能体平台 | 2026 | deerflow | - |
+| **Bio-Forge** | 合成生物应用平台 | 1983 | bio-forge | /mnt/user-data/outputs/bio-forge |
 
-- 🤖 **120个智能体矩阵** - 覆盖基因组设计、蛋白质工程、细胞工程等生物研发全流程
-- 📋 **智能任务调度** - 自动分配任务、状态跟踪、结果管理
-- 🔌 **RESTful API** - 完整的智能体管理和任务调度接口
-- 🐳 **Docker 部署** - 一键启动，开箱即用
-- 📊 **可扩展架构** - 支持 PostgreSQL、Redis、Neo4j、MinIO 等扩展
+## 核心技术架构 - 7层AI生命创造栈
 
----
-
-## 🚀 快速开始
-
-### 方式一：Docker 部署（推荐）
-
-```bash
-# 1. 克隆/进入项目目录
-cd bio-forge
-
-# 2. 配置环境
-cp .env.example .env
-
-# 3. 构建并启动
-docker-compose up -d --build
-
-# 4. 验证部署
-curl http://localhost:1983/health
-# 响应: {"status":"healthy"}
+```
+┌─────────────────────────────────────────────────────────┐
+│  应用层 (Application Layer)                               │
+│  红景天苷、蛋白质药物、细胞治疗、最小基因组、多细胞生命  │
+├─────────────────────────────────────────────────────────┤
+│  设计引擎层 (Design Engine Layer)                         │
+│  基因组设计、蛋白质工程、细胞设计、组织器官设计          │
+├─────────────────────────────────────────────────────────┤
+│  基础模型层 (Foundation Model Layer)                      │
+│  Evo2 (DNA)、AlphaFold 3 (蛋白质)、多模态整合           │
+├─────────────────────────────────────────────────────────┤
+│  多尺度模拟层 (Multi-Scale Simulation)                   │
+│  分子动力学、代谢网络、细胞模拟、组织模拟、生态模拟      │
+├─────────────────────────────────────────────────────────┤
+│  实验-AI闭环层 (Experiment-AI Loop)                      │
+│  实验室自动化、机器人实验、数据反馈、主动学习            │
+├─────────────────────────────────────────────────────────┤
+│  安全伦理层 (Safety & Ethics Layer)                       │
+│  生物安全、伦理审查、法规合规、社会影响                  │
+└─────────────────────────────────────────────────────────┘
 ```
 
-### 方式二：本地部署
+## 120个智能体矩阵架构
 
-```bash
-# 1. 创建虚拟环境
-python -m venv .venv
-source .venv/bin/activate  # Linux/Mac
-# 或
-.venv\Scripts\activate  # Windows
+### 一、基础架构层 (15个)
+- **平台管理组** (5个): 研发总监助手、平台架构师、API网关管理、容器编排、监控告警
+- **数据管理组** (5个): 数据架构师、数据集成、数据质量、备份恢复、知识图谱管理
+- **安全监控组** (5个): 身份认证、漏洞扫描、日志审计、加密管理、合规管理
 
-# 2. 安装依赖
-pip install -r requirements.txt
+### 二、生命设计层 (60个) - 核心创新层
+- **基因组设计组** (12个): DNA序列生成、启动子优化、密码子优化、基因回路、代谢通路等
+- **蛋白质工程组** (10个): 结构预测、功能设计、稳定性优化、亲和力设计、酶活性设计等
+- **细胞设计组** (15个): 细胞器设计、代谢网络、信号通路、细胞周期、分化程序等
+- **组织器官组** (12个): 组织结构、血管网络、神经连接、免疫系统、内分泌系统等
+- **系统整合组** (11个): 多尺度建模、系统验证、功能测试、稳定性评估、生物安全等
 
-# 3. 配置环境
-cp .env.example .env
+### 三、实验执行层 (25个)
+- **DNA合成控制组** (6个): 合成计划、寡核苷酸合成、DNA拼接、合成验证、错误修复等
+- **细胞组装控制组** (8个): 转化策略、质粒构建、基因组编辑、克隆验证、细胞系建立等
+- **培养优化控制组** (6个): 培养基优化、发酵参数、补料策略、污染控制、放大生产等
+- **功能验证控制组** (5个): 功能测定、表型分析、组学分析、稳定性测试、生物活性验证
 
-# 4. 启动服务
-python -m app.main
+### 四、进化优化层 (20个)
+- **适应性进化组** (7个): 进化策略、连续传代、环境压力、进化轨迹、突变谱分析等
+- **功能优化组** (6个): 目标定义、多目标优化、ML优化、定向进化、组合优化等
+- **稳定性增强组** (7个): 蛋白稳定、遗传稳定、生产稳定、储存稳定、压力耐受等
 
-# 5. 运行测试
-python test_agents.py
-python test_run.py
+## 5年路线图
+
+| 阶段 | 时间 | 里程碑 |
+|------|------|--------|
+| **第一阶段** | 2026-2027 | 合成生物原料（红景天苷等） |
+| **第二阶段** | 2027-2028 | 蛋白质药物 |
+| **第三阶段** | 2028-2029 | 细胞治疗 |
+| **第四阶段** | 2029-2030 | 500kb最小基因组 |
+| **第五阶段** | 2030-2031 | 多细胞智能生命体 |
+
+## 快速开始 - Windows Docker部署
+
+### 前置要求
+
+- Windows 10/11 (已启用 WSL 2)
+- Docker Desktop for Windows
+- 至少 4GB 可用内存
+- 至少 10GB 可用磁盘空间
+
+### 部署步骤
+
+1. **克隆或下载 Bio-Forge 项目**
+   ```powershell
+   # 创建目录
+   mkdir C:\bio-forge
+   cd C:\bio-forge
+   ```
+   
+2. **复制项目文件到 C:\bio-forge**
+   - 将项目所有文件复制到 `C:\bio-forge` 目录
+
+3. **启动 Docker Desktop**
+
+4. **构建并启动容器**
+   ```powershell
+   cd C:\bio-forge
+   docker-compose up -d --build
+   ```
+
+5. **验证部署**
+   - 访问: http://localhost:1983
+   - API文档: http://localhost:1983/docs
+   - 健康检查: http://localhost:1983/health
+
+### 常用命令
+
+```powershell
+# 查看日志
+docker logs bio-forge
+
+# 停止服务
+docker-compose down
+
+# 重启服务
+docker-compose restart
+
+# 进入容器
+docker exec -it bio-forge bash
 ```
 
-### 访问地址
+## API接口
 
-| 端点 | 地址 | 说明 |
+### 基础路径
+`http://localhost:1983/api/v1`
+
+### 主要端点
+
+| 端点 | 方法 | 描述 |
 |------|------|------|
-| API 文档 | http://localhost:1983/docs | Swagger UI |
-| 健康检查 | http://localhost:1983/health | 服务状态 |
-| 智能体列表 | http://localhost:1983/api/v1/agents | REST API |
+| `/agents` | GET | 列出所有智能体 |
+| `/agents/{id}` | GET | 获取单个智能体详情 |
+| `/agents` | POST | 创建新智能体 |
+| `/tasks` | GET | 列出所有任务 |
+| `/tasks` | POST | 创建新任务 |
+| `/status` | GET | 系统状态 |
+
+## 安全伦理体系
+
+### 四层安全框架
+1. **技术安全层**: 代码安全、访问控制、数据加密
+2. **生物安全层**: 生物遏制、自杀开关、环境隔离
+3. **伦理审查层**: 伦理委员会、风险评估、知情同意
+4. **社会治理层**: 法规合规、公众沟通、社会影响评估
+
+## 项目资源
+
+- **原始规划文档**: /mnt/user-data/uploads/V2.0_AI创造新生命项目规划.md
+- **详细部署文档**: ./DEPLOYMENT.md
+- **API文档**: http://localhost:1983/docs
+
+## 联系方式
+
+- **发起人**: chinjaneking (灵知生物科技研发总监)
+- **项目愿景**: 用AI重新定义生命创造范式
 
 ---
 
-## 📚 文档
-
-- **[部署指南](./DEPLOYMENT.md)** - 详细的部署、配置和运维文档
-- **API 文档** - http://localhost:1983/docs（服务启动后访问）
-
----
-
-## 🏗️ 架构
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Bio-Forge 架构                          │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐         │
-│  │ FastAPI     │  │ SQLAlchemy  │  │ Pydantic    │         │
-│  │ (Web API)   │  │ (ORM)       │  │ (数据验证)   │         │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘         │
-│         │                │                │                 │
-│         └────────────────┼────────────────┘                 │
-│                          │                                  │
-│  ┌───────────────────────┴───────────────────────┐          │
-│  │              Agent Manager (核心)              │          │
-│  │  - 智能体注册、激活、停用                       │          │
-│  │  - 任务分配、状态跟踪                          │          │
-│  │  - 120个预定义智能体                          │          │
-│  └───────────────────────┬───────────────────────┘          │
-│                          │                                  │
-│  ┌───────────────────────┴───────────────────────┐          │
-│  │                 数据层                         │          │
-│  │  SQLite (开发)  │  PostgreSQL (生产)          │          │
-│  └────────────────────────────────────────────────┘          │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🤖 智能体列表
-
-Bio-Forge 预设30个核心智能体，支持扩展至120个：
-
-### 基础架构层
-
-| 智能体 | 类型 | 描述 |
-|--------|------|------|
-| 研发总监助手 | R_D_ASSISTANT | 项目协调、决策支持 |
-| 项目经理 | PROJECT_MANAGEMENT | 进度跟踪、资源管理 |
-| 数据管理员 | DATA_MANAGEMENT | 数据存储、版本控制 |
-| 安全监控员 | SECURITY_MONITORING | 系统安全、访问控制 |
-| 团队协调员 | PLATFORM_MANAGEMENT | 跨团队沟通、信息同步 |
-
-### 生命设计层
-
-| 智能体 | 类型 | 描述 |
-|--------|------|------|
-| 基因组设计 | GENOME_DESIGN | 基因组合成、密码子优化 |
-| 蛋白质设计 | PROTEIN_DESIGN | 结构预测、功能设计 |
-| 细胞设计 | CELL_DESIGN | 细胞工程、信号通路 |
-| 代谢通路设计 | PATHWAY_DESIGN | 代谢通路、酶选择 |
-
-### 实验执行层
-
-| 智能体 | 类型 | 描述 |
-|--------|------|------|
-| DNA合成 | DNA_SYNTHESIS | 合成计划、拼接策略 |
-| 细胞组装 | CELL_ASSEMBLY | DNA组装、转化策略 |
-| 发酵优化智能体 | CULTURE_OPTIMIZATION | 发酵参数、放大生产 |
-| 分析方法开发 | ASSAY_VALIDATION | HPLC/LC-MS方法开发 |
-
-### 进化优化层
-
-| 智能体 | 类型 | 描述 |
-|--------|------|------|
-| 适应性进化 | ADAPTIVE_EVOLUTION | 进化策略、压力设计 |
-| 定向进化 | DIRECTED_EVOLUTION | 突变文库、筛选方案 |
-| 功能优化 | FUNCTION_OPTIMIZATION | 多目标优化、性能评估 |
-| 稳定性增强 | STABILITY_ENHANCEMENT | 蛋白稳定、遗传稳定 |
-
-### 研发管理类
-
-| 智能体 | 类型 | 描述 |
-|--------|------|------|
-| 文献调研 | LITERATURE_RESEARCH | 文献检索、趋势分析 |
-| 实验设计 | EXPERIMENT_DESIGN | DOE设计、方案优化 |
-| 数据分析 | DATA_ANALYSIS | 统计分析、数据可视化 |
-| 生物信息学 | BIOINFORMATICS | 基因组分析、序列比对 |
-| 化学信息学 | CHEMINFORMATICS | 化合物管理、虚拟筛选 |
-| 统计建模 | STATISTICAL_MODELING | 回归分析、预测建模 |
-| 专利调研 | PATENT_RESEARCH | 专利检索、侵权分析 |
-| 注册事务智能体 | REGULATORY_AFFAIRS | self-GRAS认证、法规研究 |
-| 质量控制 | QUALITY_CONTROL | 质量标准、偏差处理 |
-
-### 项目专项类
-
-| 智能体 | 类型 | 描述 |
-|--------|------|------|
-| 红景天苷项目专项 | RHODIOLA_PROJECT | 发酵工艺、中试放大 |
-
----
-
-## 🔧 API 使用示例
-
-### 创建智能体
-
-```bash
-curl -X POST "http://localhost:1983/api/v1/agents" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "新型智能体",
-    "description": "智能体描述",
-    "agent_type": "design",
-    "priority": 5,
-    "capabilities": ["能力1", "能力2"]
-  }'
-```
-
-### 列出智能体
-
-```bash
-curl "http://localhost:1983/api/v1/agents?status=active"
-```
-
-### 创建任务
-
-```bash
-curl -X POST "http://localhost:1983/api/v1/tasks" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "测试任务",
-    "agent_id": 1,
-    "input_data": {"param": "value"}
-  }'
-```
-
----
-
-## 📁 项目结构
-
-```
-bio-forge/
-├── app/
-│   ├── main.py              # FastAPI 入口
-│   ├── config.py            # 配置管理
-│   ├── database.py          # 数据库连接
-│   ├── agent_manager.py     # 智能体管理核心
-│   ├── task_scheduler.py    # 任务调度器
-│   ├── models/              # 数据模型
-│   │   ├── agent.py
-│   │   └── task.py
-│   └── api/                 # API 路由
-│       ├── agents.py
-│       └── tasks.py
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── .env.example
-├── DEPLOYMENT.md            # 部署指南
-└── README.md
-```
-
----
-
-## 🧪 测试
-
-```bash
-# 运行智能体初始化测试
-python test_agents.py
-
-# 运行完整功能测试
-python test_run.py
-
-# Docker 环境测试
-docker exec bio-forge python test_agents.py
-docker exec bio-forge python test_run.py
-```
-
----
-
-## 📋 环境变量
-
-| 变量 | 默认值 | 说明 |
-|------|--------|------|
-| `DATABASE_URL` | `sqlite:///./deerflow.db` | 数据库连接 |
-| `APP_ENV` | `development` | 环境 |
-| `APP_PORT` | `1983` | 服务端口 |
-| `MAX_AGENTS` | `120` | 最大智能体数 |
-
-完整配置见 [DEPLOYMENT.md](./DEPLOYMENT.md#4-详细配置)
-
----
-
-## 📜 License
-
-MIT License
-
----
-
-## 📞 支持
-
-- 📖 [部署文档](./DEPLOYMENT.md)
-- 🐛 [问题反馈](https://github.com/your-repo/bio-forge/issues)
-- 💬 [讨论区](https://github.com/your-repo/bio-forge/discussions)
-
----
-
-**基于 DeerFlow 2.0 框架构建**
+**© 2026 Genesis-2026 项目 - 用AI创造新生命**

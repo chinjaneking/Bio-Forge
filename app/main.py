@@ -58,8 +58,9 @@ app.include_router(tasks.router, prefix=settings.api_prefix)
 def root():
     """根路径"""
     return {
-        "name": "DeerFlow 2.0",
+        "name": "Bio-Forge",
         "version": "2.0.0",
+        "vision": "AI创造新生命",
         "status": "running",
         "docs": "/docs"
     }
@@ -75,7 +76,8 @@ def health_check():
 def system_status():
     """系统状态"""
     return {
-        "app": "DeerFlow 2.0",
+        "app": "Bio-Forge",
+        "vision": "AI创造新生命",
         "status": "active",
         "max_agents": settings.max_agents,
         "api_prefix": settings.api_prefix
