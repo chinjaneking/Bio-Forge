@@ -35,7 +35,7 @@ def check_agent_manager():
         ("initialize_default_agents 方法", "def initialize_default_agents"),
         ("研发总监助手", "研发总监助手"),
         ("蛋白质结构预测智能体", "蛋白质结构预测智能体"),
-        ("红景天苷发酵优化智能体", "红景天苷发酵优化智能体"),
+        ("Synasalid发酵优化智能体", "Synasalid发酵优化智能体"),
     ]
     
     all_passed = True
