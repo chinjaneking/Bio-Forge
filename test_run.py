@@ -6,6 +6,10 @@ Tests the complete system startup and API endpoints
 
 import sys
 import os
+import io
+
+# 设置stdout为UTF-8编码（解决Windows终端emoji显示问题）
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

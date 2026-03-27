@@ -40,9 +40,11 @@ class Settings(BaseSettings):
     # 端口
     PORT: int = int(os.getenv("PORT", 1983))
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = {
+        "env_file": ".env",
+        "case_sensitive": True,
+        "extra": "ignore"  # 允许.env中有额外字段
+    }
 
 
 # 全局配置实例

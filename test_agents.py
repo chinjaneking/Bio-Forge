@@ -6,6 +6,10 @@ Tests 120-agent matrix initialization
 
 import sys
 import os
+import io
+
+# 设置stdout为UTF-8编码（解决Windows终端emoji显示问题）
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -13,6 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from app.database import SessionLocal, init_db
 from app.agent_manager import AgentManager
 from app.models.agent import Agent, AgentStatus
+from sqlalchemy import text
 
 
 def test_database_connection():
@@ -20,7 +25,7 @@ def test_database_connection():
     print("📊 测试数据库连接...")
     try:
         db = SessionLocal()
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         db.close()
         print("✅ 数据库连接成功")
         return True
