@@ -1,94 +1,87 @@
-"""DeerFlow 2.0 主应用"""
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
-from app.config import get_settings
-from app.database import init_db, SessionLocal
-from app.agent_manager import AgentManager
-from app.api import agents, tasks
+"""
+Bio-Forge Main Application
+AI-Powered Synthetic Biology Platform
+"""
 
-settings = get_settings()
+import os
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+
+from app.core.config import settings
+from app.api.routes import router as api_router
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """应用生命周期管理"""
-    # 启动时
-    print(f"🚀 启动 DeerFlow 2.0...")
-    init_db()
+    # 启动
+    print("🚀 Bio-Forge 启动中...")
+    print(f"📊 智能体矩阵: 120个分层智能体")
+    print(f"🧬 合成生物学平台 v{settings.VERSION}")
     
-    # 初始化默认智能体
-    db = SessionLocal()
-    try:
-        manager = AgentManager(db)
-        manager.initialize_default_agents()
-    finally:
-        db.close()
-    
-    print("✅ DeerFlow 2.0 启动成功!")
     yield
     
-    # 关闭时
-    print("👋 关闭 DeerFlow 2.0...")
+    # 关闭
+    print("🛑 Bio-Forge 关闭中...")
 
 
 # 创建FastAPI应用
 app = FastAPI(
-    title="DeerFlow 2.0",
-    description="智能体协调中枢与任务调度平台",
-    version="2.0.0",
-    lifespan=lifespan
+    title="Bio-Forge API",
+    description="AI-Powered Synthetic Biology Platform - Genesis-2026",
+    version=settings.VERSION,
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+    lifespan=lifespan,
 )
 
 # CORS配置
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.ALLOWED_HOSTS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# 注册路由
-app.include_router(agents.router, prefix=settings.api_prefix)
-app.include_router(tasks.router, prefix=settings.api_prefix)
+# 注册API路由
+app.include_router(api_router, prefix="/api/v1")
 
 
-@app.get("/")
-def root():
-    """根路径"""
+@app.get("/", tags=["Health"])
+async def root():
+    """根路径 - 服务状态"""
     return {
         "name": "Bio-Forge",
-        "version": "2.0.0",
-        "vision": "AI创造新生命",
+        "version": settings.VERSION,
         "status": "running",
-        "docs": "/docs"
+        "docs": "/docs",
+        "agent_matrix": "120 agents (6 layers)",
+        "codename": "Genesis-2026"
     }
 
 
-@app.get("/health")
-def health_check():
-    """健康检查"""
-    return {"status": "healthy"}
-
-
-@app.get("/api/v1/status")
-def system_status():
-    """系统状态"""
+@app.get("/health", tags=["Health"])
+async def health_check():
+    """健康检查端点"""
     return {
-        "app": "Bio-Forge",
-        "vision": "AI创造新生命",
-        "status": "active",
-        "max_agents": settings.max_agents,
-        "api_prefix": settings.api_prefix
+        "status": "healthy",
+        "version": settings.VERSION,
+        "timestamp": "2026-03-27"
     }
 
 
 if __name__ == "__main__":
     import uvicorn
+    port = int(os.getenv("PORT", 1983))
     uvicorn.run(
         "app.main:app",
         host="0.0.0.0",
-        port=8000,
-        reload=True
+        port=port,
+        reload=False,
+        log_level="info"
     )

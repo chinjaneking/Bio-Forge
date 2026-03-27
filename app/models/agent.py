@@ -18,52 +18,40 @@ class AgentType(str, Enum):
     """智能体类型"""
     # 基础架构类
     FOUNDATION = "foundation"
-    PLATFORM_MANAGEMENT = "平台管理"
-    DATA_MANAGEMENT = "数据管理"
-    SECURITY_MONITORING = "安全监控"
+    PLATFORM_MANAGEMENT = "platform_management"
+    DATA_MANAGEMENT = "data_management"
+    SECURITY_MONITORING = "security_monitoring"
     
-    # 生命设计类
-    DESIGN = "design"
-    GENOME_DESIGN = "基因组设计"
-    PROTEIN_DESIGN = "蛋白质设计"
-    CELL_DESIGN = "细胞设计"
-    TISSUE_DESIGN = "组织设计"
-    PATHWAY_DESIGN = "通路设计"
-    METABOLIC_ENGINEERING = "代谢工程"
+    # 计算设计类
+    MOLECULAR_MODELING = "molecular_modeling"
+    PROTEIN_ENGINEERING = "protein_engineering"
+    PATHWAY_DESIGN = "pathway_design"
+    GENOME_DESIGN = "genome_design"
     
-    # 实验执行类
-    EXECUTION = "execution"
-    DNA_SYNTHESIS = "DNA合成"
-    CELL_ASSEMBLY = "细胞组装"
-    CULTURE_OPTIMIZATION = "培养优化"
-    ASSAY_VALIDATION = "分析验证"
-    LAB_AUTOMATION = "实验室自动化"
+    # 实验实验室类
+    MOLECULAR_BIOLOGY = "molecular_biology"
+    MICROBIOLOGY = "microbiology"
+    FERMENTATION_OPTIMIZATION = "fermentation_optimization"
+    ANALYTICAL_CHEMISTRY = "analytical_chemistry"
     
-    # 进化优化类
-    OPTIMIZATION = "optimization"
-    ADAPTIVE_EVOLUTION = "适应性进化"
-    FUNCTION_OPTIMIZATION = "功能优化"
-    STABILITY_ENHANCEMENT = "稳定性增强"
-    DIRECTED_EVOLUTION = "定向进化"
+    # 优化验证类
+    YIELD_OPTIMIZATION = "yield_optimization"
+    STABILITY_ENHANCEMENT = "stability_enhancement"
+    SCALE_UP = "scale_up"
     
-    # 研发管理类
-    R_D_ASSISTANT = "研发总监助手"
-    PROJECT_MANAGEMENT = "项目管理"
-    LITERATURE_RESEARCH = "文献调研"
-    EXPERIMENT_DESIGN = "实验设计"
-    DATA_ANALYSIS = "数据分析"
-    BIOINFORMATICS = "生物信息学"
-    CHEMINFORMATICS = "化学信息学"
-    STATISTICAL_MODELING = "统计建模"
-    PATENT_RESEARCH = "专利调研"
-    REGULATORY_AFFAIRS = "注册事务"
-    QUALITY_CONTROL = "质量控制"
+    # 研发助理类
+    LITERATURE_RESEARCH = "literature_research"
+    PATENT_RESEARCH = "patent_research"
+    EXPERIMENT_DESIGN = "experiment_design"
+    BIOINFORMATICS = "bioinformatics"
+    STATISTICAL_MODELING = "statistical_modeling"
+    PROJECT_MANAGEMENT = "project_management"
+    QUALITY_CONTROL = "quality_control"
+    REGULATORY_AFFAIRS = "regulatory_affairs"
     
     # 项目专项类
-    RHODIOLA_PROJECT = "红景天苷项目专项"
-    SYNTHETIC_BIOLOGY = "合成生物学专项"
-    PROTEIN_DRUG_DISCOVERY = "蛋白质药物发现"
-    CELL_THERAPY_ENGINEERING = "细胞治疗工程"
+    R_D_ASSISTANT = "r_d_assistant"
+    RHODIOLA_PROJECT = "rhodiola_project"
 
 
 class Agent(Base):

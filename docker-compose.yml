@@ -6,15 +6,38 @@ services:
     container_name: bio-forge
     ports:
       - "1983:1983"
-    volumes:
-      - ./bio-forge.db:/app/bio-forge.db
-      - ./.env:/app/.env:ro
     environment:
-      - ENV=development
+      - PORT=1983
+      - DATABASE_URL=sqlite:///data/bio-forge.db
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - redis
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:1983/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
+    container_name: bio-forge-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  # 可选：前端服务
+  # frontend:
+  #   build: ./frontend
+  #   container_name: bio-forge-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - bio-forge
+
+volumes:
+  redis-data:
