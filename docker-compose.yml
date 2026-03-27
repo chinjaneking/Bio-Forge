@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  bio-forge:
+    build: .
+    container_name: bio-forge
+    ports:
+      - "1983:8000"
+    volumes:
+      - ./deerflow.db:/app/deerflow.db
+      - ./.env:/app/.env:ro
+    environment:
+      - ENV=development
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
