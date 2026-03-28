@@ -27,15 +27,15 @@ TEMPLATES_DIR = BASE_DIR / "app" / "templates"
 async def lifespan(app: FastAPI):
     """应用生命周期管理"""
     # 启动
-    print("🚀 Bio-Forge 启动中...")
-    print(f"📊 智能体矩阵: 120个分层智能体")
-    print(f"🧬 合成生物学平台 v{settings.VERSION}")
-    print(f"🌐 Web界面: http://localhost:1983/")
+    print("[Bio-Forge] Starting...")
+    print(f"[Bio-Forge] Agent Matrix: 120 agents")
+    print(f"[Bio-Forge] Version: {settings.VERSION}")
+    print(f"[Bio-Forge] Dashboard: http://localhost:1983/")
     
     yield
     
     # 关闭
-    print("🛑 Bio-Forge 关闭中...")
+    print("[Bio-Forge] Shutting down...")
 
 
 # 创建FastAPI应用
@@ -123,24 +123,18 @@ async def execute_workflow(data: dict):
         }
 
 
-@app.get("/", tags=["Dashboard"], response_class=HTMLResponse)
+@app.get("/", tags=["Root"])
+async def root():
+    """根路径 - 重定向到Dashboard"""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/dashboard")
+
+
+@app.get("/dashboard", tags=["Dashboard"], response_class=HTMLResponse)
 async def dashboard(request: Request):
     """Web界面仪表盘"""
     if templates:
         return templates.TemplateResponse("index.html", {"request": request})
-    # 如果没有模板，返回简单的HTML
-    return HTMLResponse(content="""
-    <!DOCTYPE html>
-    <html>
-    <head><title>Bio-Forge</title></head>
-    <body style="background:#0f172a;color:#f1f5f9;font-family:system-ui;padding:40px;">
-        <h1>🧬 Bio-Forge</h1>
-        <p>AI合成生物学平台</p>
-        <p><a href="/docs" style="color:#3b82f6">API文档</a> | <a href="/health" style="color:#10b981">健康检查</a></p>
-        <p>版本: Genesis-2026</p>
-    </body>
-    </html>
-    """)
 
 
 @app.get("/api", tags=["Health"])
