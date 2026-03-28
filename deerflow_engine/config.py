@@ -92,10 +92,28 @@ class DeerFlowConfig:
         """配置文件完整路径"""
         if self.config_path:
             return self.config_path
-        # 默认配置文件路径
+        
+        # 查找配置文件的优先级:
+        # 1. 环境变量指定
+        # 2. Bio-Forge项目目录下的 config.yaml
+        # 3. DeerFlow backend 目录下的config.yaml
+        
+        env_config = os.environ.get("DEERFLOW_CONFIG_PATH")
+        if env_config:
+            env_path = Path(env_config)
+            if env_path.exists():
+                return env_path
+        
+        # Bio-Forge项目目录下的 config.yaml
+        bio_forge_config = Path(__file__).parent.parent / "config.yaml"
+        if bio_forge_config.exists():
+            return bio_forge_config
+        
+        # DeerFlow backend 目录下的 config.yaml
         default_config = self.deerflow_root / "backend" / "config.yaml"
         if default_config.exists():
             return default_config
+        
         return None
     
     def validate(self) -> List[str]:

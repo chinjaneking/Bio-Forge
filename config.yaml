@@ -175,7 +175,7 @@ summarization:
 # ============================================================================
 memory:
   enabled: true
-  storage_path: data/deerflow/memory.json
+  storage_path: memory.json
   debounce_seconds: 30
   model_name: null
   max_facts: 100
@@ -188,7 +188,7 @@ memory:
 # ============================================================================
 checkpointer:
   type: sqlite
-  connection_string: data/deerflow/checkpoints.db
+  connection_string: checkpoints.db
 
 # ============================================================================
 # Guardrails Configuration (disabled for Bio-Forge)
