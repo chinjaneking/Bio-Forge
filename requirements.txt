@@ -57,3 +57,14 @@ pytest-asyncio==0.21.1
 # Monitoring
 # ================
 prometheus-client==0.19.0
+
+# ================
+# DeerFlow Integration (可选 - 需要DeerFlow 2.0)
+# ================
+# DeerFlow 是独立的 Python 包，需要单独安装:
+# pip install -e C:\Users\chinjaneking\deer-flow\backend\packages\harness
+# 或通过 Docker 部署
+#
+# 核心依赖 (用于deerflow_engine桥接层):
+langchain-core>=0.1.0
+langchain>=0.1.0
