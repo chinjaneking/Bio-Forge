@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bio-Forge - AI合成生物学平台</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">🧬</div>
+        <div>
+          <h1>Bio-Forge</h1>
+          <span>AI合成生物学平台 · Genesis-2026</span>
+        </div>
+      </div>
+      <div class="status">
+        <span id="connection-status" class="stat-badge">🟢 已连接</span>
+      </div>
+    </header>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card total">
+        <h3>智能体总数</h3>
+        <div class="value" id="stat-total">-</div>
+      </div>
+      <div class="stat-card active">
+        <h3>活跃智能体</h3>
+        <div class="value" id="stat-active">-</div>
+      </div>
+      <div class="stat-card tasks">
+        <h3>已执行任务</h3>
+        <div class="value" id="stat-tasks">-</div>
+      </div>
+      <div class="stat-card success">
+        <h3>成功率</h3>
+        <div class="value" id="stat-success">-</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-tab="agents">智能体列表</div>
+      <div class="tab" data-tab="task">执行任务</div>
+      <div class="tab" data-tab="workflow">DeerFlow工作流</div>
+    </div>
+
+    <!-- Agents Panel -->
+    <div id="agents-panel" class="panel active">
+      <div class="agents-grid" id="agents-list">
+        <!-- Agents will be loaded here -->
+      </div>
+    </div>
+
+    <!-- Task Panel -->
+    <div id="task-panel" class="panel">
+      <div class="form-group">
+        <label>选择智能体</label>
+        <select id="task-agent-select">
+          <option value="">-- 选择智能体 --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>任务类型</label>
+        <select id="task-type">
+          <option value="analysis">分析任务</option>
+          <option value="design">设计任务</option>
+          <option value="optimization">优化任务</option>
+          <option value="research">研究任务</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>任务描述</label>
+        <textarea id="task-input" placeholder="请输入任务描述..."></textarea>
+      </div>
+      <button class="btn btn-primary" onclick="executeTask()">
+        <span id="task-btn-text">执行任务</span>
+        <span id="task-loading" class="loading" style="display:none;"></span>
+      </button>
+      <div class="result-box" id="task-result" style="display:none;">
+        <h4>执行结果</h4>
+        <pre id="task-output"></pre>
+      </div>
+    </div>
+
+    <!-- Workflow Panel -->
+    <div id="workflow-panel" class="panel">
+      <h3 style="margin-bottom: 16px;">选择工作流</h3>
+      <div class="workflow-select">
+        <div class="workflow-option selected" data-workflow="enzyme-design">
+          <h4>🧪 酶设计工作流</h4>
+          <p>蛋白质结构预测 → 酶工程 → 能量计算 → 机制分析</p>
+        </div>
+        <div class="workflow-option" data-workflow="synasalid">
+          <h4>🌿 Synasalid生产工作流</h4>
+          <p>途径设计 → 发酵优化 → 质量控制 → 注册审查</p>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>目标序列 (可选)</label>
+        <input type="text" id="workflow-sequence" placeholder="MKTLLIAG...">
+      </div>
+      <div class="form-group">
+        <label>目标反应</label>
+        <input type="text" id="workflow-reaction" placeholder="ATP + Glucose -> ADP + Glucose-6-P">
+      </div>
+      <div class="form-group">
+        <label>优化目标 (用逗号分隔)</label>
+        <input type="text" id="workflow-goals" value="thermal_stability, catalytic_efficiency" placeholder="thermal_stability, catalytic_efficiency">
+      </div>
+      <button class="btn btn-success" onclick="executeWorkflow()">
+        <span id="workflow-btn-text">执行工作流</span>
+        <span id="workflow-loading" class="loading" style="display:none;"></span>
+      </button>
+      <div class="result-box" id="workflow-result" style="display:none;">
+        <h4>工作流执行结果</h4>
+        <pre id="workflow-output"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = '';
+    let agents = [];
+
+    // Tab switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab + '-panel').classList.add('active');
+      });
+    });
+
+    // Workflow selection
+    document.querySelectorAll('.workflow-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.workflow-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+      });
+    });
+
+    // Load agents
+    async function loadAgents() {
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/agents`);
+        agents = await res.json();
+        
+        // Update stats
+        document.getElementById('stat-total').textContent = agents.length;
+        document.getElementById('stat-active').textContent = agents.filter(a => a.status === 'active').length;
+        document.getElementById('stat-tasks').textContent = agents.reduce((sum, a) => sum + a.total_tasks, 0);
+        const successRate = agents.reduce((sum, a) => sum + a.successful_tasks, 0) / 
+                           (agents.reduce((sum, a) => sum + a.total_tasks, 0) || 1) * 100;
+        document.getElementById('stat-success').textContent = isNaN(successRate) ? '0%' : successRate.toFixed(0) + '%';
+        
+        // Render agents
+        const container = document.getElementById('agents-list');
+        container.innerHTML = agents.map(agent => `
+          <div class="agent-card" onclick="selectAgent(${agent.id})">
+            <div class="header">
+              <div class="name">${agent.name}</div>
+              <div class="type">${agent.agent_type}</div>
+            </div>
+            <div class="description">${agent.description}</div>
+            <div class="capabilities">
+              ${agent.capabilities.slice(0, 4).map(cap => `<span class="capability">${cap}</span>`).join('')}
+            </div>
+          </div>
+        `).join('');
+        
+        // Populate select
+        const select = document.getElementById('task-agent-select');
+        select.innerHTML = '<option value="">-- 选择智能体 --</option>' +
+          agents.map(a => `<option value="${a.id}">${a.name} (${a.agent_type})</option>`).join('');
+          
+      } catch (err) {
+        console.error('Failed to load agents:', err);
+        document.getElementById('connection-status').innerHTML = '🔴 连接失败';
+      }
+    }
+
+    function selectAgent(id) {
+      document.querySelector('[data-tab="task"]').click();
+      document.getElementById('task-agent-select').value = id;
+    }
+
+    // Execute task
+    async function executeTask() {
+      const agentId = document.getElementById('task-agent-select').value;
+      const taskType = document.getElementById('task-type').value;
+      const input = document.getElementById('task-input').value;
+      
+      if (!agentId) {
+        alert('请选择智能体');
+        return;
+      }
+      if (!input) {
+        alert('请输入任务描述');
+        return;
+      }
+      
+      document.getElementById('task-btn-text').style.display = 'none';
+      document.getElementById('task-loading').style.display = 'inline-block';
+      document.getElementById('task-result').style.display = 'none';
+      
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/tasks`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            agent_id: parseInt(agentId),
+            task_type: taskType,
+            input_data: { query: input }
+          })
+        });
+        
+        const data = await res.json();
+        document.getElementById('task-output').textContent = JSON.stringify(data, null, 2);
+        document.getElementById('task-result').style.display = 'block';
+      } catch (err) {
+        document.getElementById('task-output').textContent = '错误: ' + err.message;
+        document.getElementById('task-result').style.display = 'block';
+      } finally {
+        document.getElementById('task-btn-text').style.display = 'inline';
+        document.getElementById('task-loading').style.display = 'none';
+      }
+    }
+
+    // Execute workflow
+    async function executeWorkflow() {
+      const workflow = document.querySelector('.workflow-option.selected')?.dataset.workflow;
+      const sequence = document.getElementById('workflow-sequence').value;
+      const reaction = document.getElementById('workflow-reaction').value;
+      const goals = document.getElementById('workflow-goals').value;
+      
+      document.getElementById('workflow-btn-text').style.display = 'none';
+      document.getElementById('workflow-loading').style.display = 'inline-block';
+      document.getElementById('workflow-result').style.display = 'none';
+      
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/workflow/execute`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            workflow_type: workflow,
+            target_sequence: sequence,
+            target_reaction: reaction,
+            optimization_goals: goals.split(',').map(g => g.trim())
+          })
+        });
+        
+        const data = await res.json();
+        document.getElementById('workflow-output').textContent = JSON.stringify(data, null, 2);
+        document.getElementById('workflow-result').style.display = 'block';
+      } catch (err) {
+        document.getElementById('workflow-output').textContent = '错误: ' + err.message;
+        document.getElementById('workflow-result').style.display = 'block';
+      } finally {
+        document.getElementById('workflow-btn-text').style.display = 'inline';
+        document.getElementById('workflow-loading').style.display = 'none';
+      }
+    }
+
+    // Initialize
+    loadAgents();
+  </script>
+</body>
+</html>
