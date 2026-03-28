@@ -24,8 +24,8 @@ class DeerFlowConfig:
     # DeerFlow 配置文件路径
     config_path: Optional[Path] = None
     
-    # 默认模型配置
-    default_model: str = "claude-sonnet-4-20250514"
+    # 默认模型配置 (可通过环境变量覆盖)
+    default_model: str = field(default_factory=lambda: os.environ.get("DEERFLOW_MODEL", "glm-5.1"))
     thinking_enabled: bool = True
     subagent_enabled: bool = False
     plan_mode: bool = False

@@ -60,6 +60,25 @@ models:
     max_tokens: 8192
     temperature: 0.7
 
+  # GLM models via Anthropic-compatible API
+  - name: glm-5.1
+    display_name: GLM-5.1
+    use: langchain_anthropic:ChatAnthropic
+    model: glm-5.1
+    api_key: 79a65e78d55f43deae2a80b4b42dd78a.ZTnTFAO9zRoiNNVu
+    base_url: https://open.bigmodel.cn/api/anthropic
+    max_tokens: 16384
+    temperature: 0.7
+
+  - name: glm-5-turbo
+    display_name: GLM-5-Turbo
+    use: langchain_anthropic:ChatAnthropic
+    model: glm-5-turbo
+    api_key: 79a65e78d55f43deae2a80b4b42dd78a.ZTnTFAO9zRoiNNVu
+    base_url: https://open.bigmodel.cn/api/anthropic
+    max_tokens: 8192
+    temperature: 0.7
+
 # ============================================================================
 # Tool Groups Configuration
 # ============================================================================
