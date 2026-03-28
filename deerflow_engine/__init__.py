@@ -22,19 +22,31 @@ DeerFlow Engine - Bio-Forge 集成层
 """
 
 from deerflow_engine.base_agent import BaseDeerFlowAgent
-from deerflow_engine.workflow import WorkflowGenerator, WorkflowNode, WorkflowEdge
+from deerflow_engine.workflow import (
+    WorkflowGenerator,
+    WorkflowNode,
+    WorkflowEdge,
+    WorkflowDefinition,
+    WorkflowExecutor,
+    WorkflowStatus,
+)
 from deerflow_engine.config import DeerFlowConfig, get_deerflow_config
-from deerflow_engine.memory import AgentMemory, MemoryEntry
+from deerflow_engine.memory import AgentMemory, MemoryEntry, MemoryType, MemoryImportance
 
 __all__ = [
     "BaseDeerFlowAgent",
     "WorkflowGenerator",
     "WorkflowNode",
     "WorkflowEdge",
+    "WorkflowDefinition",
+    "WorkflowExecutor",
+    "WorkflowStatus",
     "DeerFlowConfig",
     "get_deerflow_config",
     "AgentMemory",
     "MemoryEntry",
+    "MemoryType",
+    "MemoryImportance",
 ]
 
 __version__ = "0.1.0"

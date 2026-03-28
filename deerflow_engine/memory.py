@@ -405,12 +405,12 @@ class AgentMemory:
                 capabilities[cap] = {
                     "current_value": record.after_value,
                     "evolution_count": 1,
-                    "last_evolution": record.timestamp,
+                    "last_evolution": record.timestamp.isoformat() if hasattr(record.timestamp, 'isoformat') else str(record.timestamp),
                 }
             else:
                 capabilities[cap]["current_value"] = record.after_value
                 capabilities[cap]["evolution_count"] += 1
-                capabilities[cap]["last_evolution"] = record.timestamp
+                capabilities[cap]["last_evolution"] = record.timestamp.isoformat() if hasattr(record.timestamp, 'isoformat') else str(record.timestamp)
         
         return capabilities
     
