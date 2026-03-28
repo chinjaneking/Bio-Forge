@@ -135,7 +135,7 @@ def get_deerflow_client():
     获取 DeerFlow Client 实例
     
     Returns:
-        DeerFlowClient 实例
+        DeerFlowClient 实例, 或None (如果配置不可用)
         
     Raises:
         ImportError: 如果 deerflow 模块不可用
@@ -168,4 +168,10 @@ def get_deerflow_client():
                 f"Error: {e}"
             )
     
-    return DeerFlowClient(**config.to_deerflow_client_kwargs())
+    # 尝试创建客户端，如果配置问题则返回 None
+    try:return DeerFlowClient(**config.to_deerflow_client_kwargs())
+    except Exception as e:
+        # 配置问题（如缺少 API 密钥），返回None 以启用模拟模式
+        import logging
+        logging.getLogger(__name__).warning(f"DeerFlow client initialization failed, using simulation mode: {e}")
+        return None
